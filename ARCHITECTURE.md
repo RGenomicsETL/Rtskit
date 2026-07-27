@@ -24,8 +24,9 @@ not silently parse JSON or reinterpret arbitrary metadata.
 
 The package compiles pinned tskit and kastore C sources statically into the R
 shared library. It does not discover a system tskit because the C project does
-not promise shared-library ABI stability. Vendored sources are unmodified and
-covered by a complete checksum inventory and upstream receipt.
+not promise shared-library ABI stability. Vendored sources have one explicit
+R-host integration patch, a complete downstream checksum inventory, an upstream
+receipt, and a reverse-patch audit that reconstructs the selected pinned files.
 
 The package interface is GPL-2 or later. Vendored MIT notices remain attached
 to the upstream source.

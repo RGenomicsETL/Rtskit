@@ -1,0 +1,54 @@
+---
+title: "Native tree sequences in R"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Native tree sequences in R}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+`Rtskit` keeps a succinct tree sequence in an owned native
+`tsk_treeseq_t`. R receives copied summaries or table columns only when an
+accessor requests them. No Python runtime or system tskit shared library is
+involved.
+
+```{r}
+library(Rtskit)
+
+trees <- tskit_example()
+trees
+tskit_summary(trees)
+```
+
+## Tables and coordinates
+
+Node, edge, and tree IDs preserve tskit's zero-based indexing. Genomic
+intervals are half-open: an edge over `[left, right)` includes `left` and
+excludes `right`.
+
+```{r}
+tskit_nodes(trees)
+tskit_edges(trees)
+tskit_trees(trees)
+```
+
+## Round trips
+
+`tskit_dump()` writes the native value directly through the tskit C API.
+`tskit_load()` creates a new, independently owned native value.
+
+```{r}
+path <- tempfile(fileext = ".trees")
+tskit_dump(trees, path)
+copy <- tskit_load(path)
+identical(tskit_summary(copy), tskit_summary(trees))
+unlink(path)
+```
+
+The package deliberately does not reinterpret arbitrary table metadata.
+Metadata schemas and bytes require explicit schema-aware handling rather than
+implicit JSON conversion.

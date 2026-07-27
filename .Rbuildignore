@@ -5,5 +5,8 @@
 ^Makefile$
 ^tools$
 ^README\.Rmd$
+^_pkgdown\.yml$
+^pkgdown$
+^docs$
 ^Rtskit_[0-9.]+\.tar\.gz$
 ^Rtskit\.Rcheck$

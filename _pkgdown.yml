@@ -1,0 +1,29 @@
+url: https://rgenomicsetl.github.io/Rtskit/
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+    left: [intro, reference, articles, news]
+    right: [search, github]
+
+articles:
+  - title: Getting started
+    navbar: ~
+    contents:
+      - native-tree-sequences
+
+reference:
+  - title: Tree-sequence ownership and I/O
+    contents:
+      - TreeSequence
+      - tskit_load
+      - tskit_dump
+      - tskit_example
+  - title: Native inspection
+    contents:
+      - tskit_summary
+      - tskit_samples
+      - tskit_nodes
+      - tskit_edges
+      - tskit_trees
