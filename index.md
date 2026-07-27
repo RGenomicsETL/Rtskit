@@ -11,7 +11,9 @@ shared library.
 
 The initial interface keeps each `tsk_treeseq_t` under one native
 external pointer and exposes deliberate materialization operations for
-summaries, sample nodes, node and edge tables, and tree intervals.
+summaries, sample nodes, node, edge, population, and individual tables,
+opaque metadata bytes, tree intervals, and source-population ancestry
+intervals.
 
 Install the development build from R-universe:
 
@@ -38,7 +40,7 @@ trees
 ## <Rtskit::TreeSequence>
 ##   source: <memory>
 ##   sequence length: 10
-##   trees: 1
+##   trees: 2
 ##   samples: 2
 ```
 
@@ -49,9 +51,10 @@ tskit_nodes(trees)
 
 ``` R
 ##   id flags time population individual
-## 1  0     1    0         -1         -1
-## 2  1     1    0         -1         -1
-## 3  2     0    1         -1         -1
+## 1  0     1    0         -1          0
+## 2  1     1    0         -1          0
+## 3  2     0    1          0         -1
+## 4  3     0    1          1         -1
 ```
 
 ``` r
@@ -61,8 +64,10 @@ tskit_edges(trees)
 
 ``` R
 ##   id left right parent child
-## 1  0    0    10      2     0
-## 2  1    0    10      2     1
+## 1  0    0     5      2     0
+## 2  1    0     5      2     1
+## 3  2    5    10      3     0
+## 4  3    5    10      3     1
 ```
 
 ``` r
@@ -72,12 +77,34 @@ tskit_trees(trees)
 
 ``` R
 ##   index left right roots edges
-## 1     0    0    10     1     2
+## 1     0    0     5     1     2
+## 2     1    5    10     1     2
 ```
 
-IDs retain tskit’s zero-based indexing. Table metadata remains opaque
-bytes until an explicit schema-aware interface is implemented; the C API
-does not itself decode or validate metadata schemas.
+``` r
+
+tskit_ancestry_intervals(
+  trees,
+  c("panel:source_A" = 0L, "panel:source_B" = 1L)
+)
+```
+
+``` R
+##   sample left right         source source_population
+## 1      0    0     5 panel:source_A                 0
+## 2      0    5    10 panel:source_B                 1
+## 3      1    0     5 panel:source_A                 0
+## 4      1    5    10 panel:source_B                 1
+```
+
+IDs retain tskit’s zero-based indexing.
+[`tskit_metadata()`](https://rgenomicsetl.github.io/Rtskit/reference/tskit_metadata.md)
+and
+[`tskit_metadata_schema()`](https://rgenomicsetl.github.io/Rtskit/reference/tskit_metadata_schema.md)
+return exact raw bytes: decoding remains an explicit caller decision
+because the C API does not itself interpret metadata codecs.
+Source-population ancestry is valid only when the simulation provenance
+makes its retained node populations authoritative.
 
 ## Native ownership
 

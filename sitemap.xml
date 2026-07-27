@@ -9,11 +9,16 @@
 <url><loc>https://rgenomicsetl.github.io/Rtskit/reference/Rtskit-package.html</loc></url>
 <url><loc>https://rgenomicsetl.github.io/Rtskit/reference/TreeSequence.html</loc></url>
 <url><loc>https://rgenomicsetl.github.io/Rtskit/reference/index.html</loc></url>
+<url><loc>https://rgenomicsetl.github.io/Rtskit/reference/tskit_ancestry_intervals.html</loc></url>
 <url><loc>https://rgenomicsetl.github.io/Rtskit/reference/tskit_dump.html</loc></url>
 <url><loc>https://rgenomicsetl.github.io/Rtskit/reference/tskit_edges.html</loc></url>
 <url><loc>https://rgenomicsetl.github.io/Rtskit/reference/tskit_example.html</loc></url>
+<url><loc>https://rgenomicsetl.github.io/Rtskit/reference/tskit_individuals.html</loc></url>
 <url><loc>https://rgenomicsetl.github.io/Rtskit/reference/tskit_load.html</loc></url>
+<url><loc>https://rgenomicsetl.github.io/Rtskit/reference/tskit_metadata.html</loc></url>
+<url><loc>https://rgenomicsetl.github.io/Rtskit/reference/tskit_metadata_schema.html</loc></url>
 <url><loc>https://rgenomicsetl.github.io/Rtskit/reference/tskit_nodes.html</loc></url>
+<url><loc>https://rgenomicsetl.github.io/Rtskit/reference/tskit_populations.html</loc></url>
 <url><loc>https://rgenomicsetl.github.io/Rtskit/reference/tskit_samples.html</loc></url>
 <url><loc>https://rgenomicsetl.github.io/Rtskit/reference/tskit_summary.html</loc></url>
 <url><loc>https://rgenomicsetl.github.io/Rtskit/reference/tskit_trees.html</loc></url>

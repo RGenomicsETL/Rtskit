@@ -46,7 +46,7 @@
 <h2 id="boundary">Boundary<a class="anchor" aria-label="anchor" href="#boundary"></a></h2>
 <p>The native <code>rtskit_treeseq_handle</code> owns one initialized <code>tsk_treeseq_t</code>. <code>TreeSequence</code> is the R-facing S7 value that contains the tagged external pointer. Native functions borrow table columns only during <code><a href="https://rdrr.io/r/base/CallExternal.html" class="external-link">.Call()</a></code> and either return compact scalar metadata or deliberately materialized R vectors.</p>
 <p>Zero-based tskit IDs remain zero-based. Sizes are returned as R doubles where a tskit size may exceed <code>INT_MAX</code>; materializers currently reject tables too large for their data-frame row-name representation instead of narrowing IDs.</p>
-<p>Metadata bytes and metadata schemas remain distinct. The initial interface does not silently parse JSON or reinterpret arbitrary metadata.</p>
+<p>Metadata bytes and metadata schemas remain distinct. Both are copied into raw R vectors only on request; the interface does not silently parse JSON or reinterpret arbitrary metadata.</p>
 </div>
 <div class="section level2">
 <h2 id="native-source-policy">Native source policy<a class="anchor" aria-label="anchor" href="#native-source-policy"></a></h2>
@@ -55,7 +55,8 @@
 </div>
 <div class="section level2">
 <h2 id="scope-discipline">Scope discipline<a class="anchor" aria-label="anchor" href="#scope-discipline"></a></h2>
-<p>Current operations load, dump, summarize, list samples, materialize node and edge tables, and traverse tree intervals. New tables or algorithms are added only with an R consumer, ownership contract, native test, and <code>.trees</code> round-trip evidence. Simulation belongs in a separate layer built on table construction and tree-sequence recording; it is not implied by tree-sequence I/O alone.</p>
+<p>Current operations load, dump, summarize, list samples, materialize node, edge, population, and individual tables, copy opaque metadata, traverse tree intervals, and extract source-population ancestry intervals. Ancestry extraction walks each focal lineage to the first node in a declared source population and merges adjacent intervals only while that source is unchanged; simulation provenance remains responsible for making this a valid truth definition.</p>
+<p>New tables or algorithms are added only with an R consumer, ownership contract, native test, and <code>.trees</code> round-trip evidence. Simulation belongs in a separate layer built on tree-sequence recording; it is not implied by tree-sequence I/O alone.</p>
 </div>
 </div>
 

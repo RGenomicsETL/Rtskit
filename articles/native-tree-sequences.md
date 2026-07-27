@@ -14,26 +14,26 @@ trees
 #> <Rtskit::TreeSequence>
 #>   source: <memory>
 #>   sequence length: 10
-#>   trees: 1
+#>   trees: 2
 #>   samples: 2
 tskit_summary(trees)
 #> $sequence_length
 #> [1] 10
 #> 
 #> $trees
-#> [1] 1
+#> [1] 2
 #> 
 #> $samples
 #> [1] 2
 #> 
 #> $individuals
-#> [1] 0
+#> [1] 1
 #> 
 #> $nodes
-#> [1] 3
+#> [1] 4
 #> 
 #> $edges
-#> [1] 2
+#> [1] 4
 #> 
 #> $sites
 #> [1] 1
@@ -42,7 +42,7 @@ tskit_summary(trees)
 #> [1] 1
 #> 
 #> $populations
-#> [1] 0
+#> [1] 2
 #> 
 #> $migrations
 #> [1] 0
@@ -61,17 +61,70 @@ and excludes `right`.
 
 tskit_nodes(trees)
 #>   id flags time population individual
-#> 1  0     1    0         -1         -1
-#> 2  1     1    0         -1         -1
-#> 3  2     0    1         -1         -1
+#> 1  0     1    0         -1          0
+#> 2  1     1    0         -1          0
+#> 3  2     0    1          0         -1
+#> 4  3     0    1          1         -1
 tskit_edges(trees)
 #>   id left right parent child
-#> 1  0    0    10      2     0
-#> 2  1    0    10      2     1
+#> 1  0    0     5      2     0
+#> 2  1    0     5      2     1
+#> 3  2    5    10      3     0
+#> 4  3    5    10      3     1
+tskit_populations(trees)
+#>   id metadata_length
+#> 1  0              19
+#> 2  1              19
+tskit_individuals(trees)
+#>   id flags location parents metadata_length
+#> 1  0     0 1.5, 2.5                      17
 tskit_trees(trees)
 #>   index left right roots edges
-#> 1     0    0    10     1     2
+#> 1     0    0     5     1     2
+#> 2     1    5    10     1     2
 ```
+
+## Opaque metadata
+
+Metadata and its schema remain separate raw byte sequences. Decode them
+only when the stored schema declares a codec the calling analysis
+understands.
+
+``` r
+
+rawToChar(tskit_metadata_schema(trees, "populations"))
+#> [1] "{\"codec\":\"json\",\"type\":\"object\"}"
+lapply(tskit_metadata(trees, "populations"), rawToChar)
+#> [[1]]
+#> [1] "{\"name\":\"source_A\"}"
+#> 
+#> [[2]]
+#> [1] "{\"name\":\"source_B\"}"
+```
+
+## Source-population ancestry
+
+For simulations that retain authoritative source populations,
+[`tskit_ancestry_intervals()`](https://rgenomicsetl.github.io/Rtskit/reference/tskit_ancestry_intervals.md)
+walks each focal sample lineage to the first node in a declared source
+population. Adjacent marginal trees are merged while the source remains
+unchanged.
+
+``` r
+
+tskit_ancestry_intervals(
+  trees,
+  c("panel:source_A" = 0L, "panel:source_B" = 1L)
+)
+#>   sample left right         source source_population
+#> 1      0    0     5 panel:source_A                 0
+#> 2      0    5    10 panel:source_B                 1
+#> 3      1    0     5 panel:source_A                 0
+#> 4      1    5    10 panel:source_B                 1
+```
+
+This operation does not infer ancestry labels. The source IDs and their
+truth semantics must come from the simulation manifest.
 
 ## Round trips
 

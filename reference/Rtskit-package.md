@@ -7,6 +7,8 @@ Rust, Java, or external shared-library runtime dependency.
 
 Useful links:
 
+- <https://rgenomicsetl.github.io/Rtskit/>
+
 - <https://github.com/RGenomicsETL/Rtskit>
 
 - Report bugs at <https://github.com/RGenomicsETL/Rtskit/issues>

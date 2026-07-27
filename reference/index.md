@@ -21,5 +21,18 @@
   : Materialize the node table
 - [`tskit_edges()`](https://rgenomicsetl.github.io/Rtskit/reference/tskit_edges.md)
   : Materialize the edge table
+- [`tskit_populations()`](https://rgenomicsetl.github.io/Rtskit/reference/tskit_populations.md)
+  : Materialize the population table
+- [`tskit_individuals()`](https://rgenomicsetl.github.io/Rtskit/reference/tskit_individuals.md)
+  : Materialize the individual table
+- [`tskit_metadata()`](https://rgenomicsetl.github.io/Rtskit/reference/tskit_metadata.md)
+  : Read opaque metadata bytes
+- [`tskit_metadata_schema()`](https://rgenomicsetl.github.io/Rtskit/reference/tskit_metadata_schema.md)
+  : Read an opaque metadata schema
 - [`tskit_trees()`](https://rgenomicsetl.github.io/Rtskit/reference/tskit_trees.md)
   : Traverse tree intervals
+
+## Simulation truth
+
+- [`tskit_ancestry_intervals()`](https://rgenomicsetl.github.io/Rtskit/reference/tskit_ancestry_intervals.md)
+  : Extract source-population ancestry intervals
