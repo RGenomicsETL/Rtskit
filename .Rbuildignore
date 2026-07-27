@@ -1,0 +1,9 @@
+^\.git$
+^\.github$
+^.*\.Rproj$
+^\.Rproj\.user$
+^Makefile$
+^tools$
+^README\.Rmd$
+^Rtskit_[0-9.]+\.tar\.gz$
+^Rtskit\.Rcheck$

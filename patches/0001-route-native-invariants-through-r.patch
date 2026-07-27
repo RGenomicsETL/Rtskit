@@ -1,0 +1,64 @@
+--- a/src/vendor/tskit/tskit/core.h
++++ b/src/vendor/tskit/tskit/core.h
+@@ -975,7 +975,11 @@
+  * approriate stream to emit debug information when the TSK_DEBUG
+  * flag is passed to supporting functions (e.g. in R).
+  */
++#ifdef RTSKIT_R_PACKAGE
++#define TSK_DEFAULT_DEBUG_STREAM NULL
++#else
+ #define TSK_DEFAULT_DEBUG_STREAM stdout
++#endif
+ 
+ #ifdef TSK_TRACE_ERRORS
+ 
+@@ -1017,6 +1021,15 @@
+ an R package, and should be treated as part of the documented API
+ (no changes).
+ */
++#ifdef RTSKIT_R_PACKAGE
++void rtskit_native_bug(const char *file, int line, const char *message);
++#define tsk_bug_assert(condition)                                                       \
++    do {                                                                                \
++        if (!(condition)) {                                                             \
++            rtskit_native_bug(__FILE__, __LINE__, TSK_BUG_ASSERT_MESSAGE);              \
++        }                                                                               \
++    } while (0)
++#else
+ #define tsk_bug_assert(condition)                                                       \
+     do {                                                                                \
+         if (!(condition)) {                                                             \
+@@ -1025,6 +1038,7 @@
+             abort();                                                                    \
+         }                                                                               \
+     } while (0)
++#endif
+ 
+ void __tsk_safe_free(void **ptr);
+ #define tsk_safe_free(pointer) __tsk_safe_free((void **) &(pointer))
+--- a/src/vendor/kastore/kastore.h
++++ b/src/vendor/kastore/kastore.h
+@@ -179,6 +179,15 @@
+ We often wish to assert a condition that is unexpected, but using the normal `assert`
+ means compiling without NDEBUG. This macro still asserts when NDEBUG is defined.
+ */
++#ifdef RTSKIT_R_PACKAGE
++void rtskit_native_bug(const char *file, int line, const char *message);
++#define kas_bug_assert(condition)                                                       \
++    do {                                                                                \
++        if (!(condition)) {                                                             \
++            rtskit_native_bug(__FILE__, __LINE__, KAS_BUG_ASSERT_MESSAGE);              \
++        }                                                                               \
++    } while (0)
++#else
+ #define kas_bug_assert(condition)                                                       \
+     do {                                                                                \
+         if (!(condition)) {                                                             \
+@@ -187,6 +196,7 @@
+             abort();                                                                    \
+         }                                                                               \
+     } while (0)
++#endif
+ 
+ typedef struct {
+     int type;

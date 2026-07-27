@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/tskit-dev/tskit.git",
+  "tag": "1.0.3",
+  "commit": "b62f75f04af81fbf5f0d6fb38953cb97b587737f",
+  "c_api_version": "1.3.1",
+  "kastore_version": "2.1.2",
+  "license": "MIT"
+}

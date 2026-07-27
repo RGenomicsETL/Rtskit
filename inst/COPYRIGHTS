@@ -1,0 +1,11 @@
+Rtskit package interface
+Copyright (c) 2026 Sounkou Mahamane Toure
+GNU General Public License version 2 or later
+
+tskit C library
+Copyright (c) 2018-2019 Tskit Developers
+MIT License
+https://github.com/tskit-dev/tskit
+
+The complete license text is installed in LICENSE and retained with the
+vendored tskit source under src/vendor/tskit/LICENSE in the source package.

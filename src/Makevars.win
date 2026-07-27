@@ -1,0 +1,14 @@
+PKG_CPPFLAGS = -DRTSKIT_R_PACKAGE -Ivendor/tskit -Ivendor/kastore
+PKG_LIBS = -lm -ladvapi32
+
+TSKIT_OBJECTS = \
+	vendor/kastore/kastore.o \
+	vendor/tskit/tskit/core.o \
+	vendor/tskit/tskit/tables.o \
+	vendor/tskit/tskit/trees.o \
+	vendor/tskit/tskit/genotypes.o \
+	vendor/tskit/tskit/stats.o \
+	vendor/tskit/tskit/convert.o \
+	vendor/tskit/tskit/haplotype_matching.o
+
+OBJECTS = rtskit.o init.o $(TSKIT_OBJECTS)

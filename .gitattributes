@@ -1,0 +1,6 @@
+*.R text eol=lf
+*.Rmd text eol=lf
+*.c text eol=lf
+*.h text eol=lf
+*.sh text eol=lf
+patches/*.patch text eol=lf -whitespace

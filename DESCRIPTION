@@ -1,0 +1,39 @@
+Package: Rtskit
+Title: Native Access to Succinct Tree Sequences
+Version: 0.0.0.9000
+Authors@R: c(
+    person(
+      given = c("Sounkou", "Mahamane"),
+      family = "Toure",
+      email = "sounkoutoure@gmail.com",
+      role = c("aut", "cre")
+    ),
+    person(
+      given = "Tskit Developers",
+      role = "cph",
+      comment = "Bundled tskit C library"
+    )
+  )
+Description: Provides a native R interface to the 'tskit' C API for loading,
+    inspecting, traversing, and writing succinct tree sequences. Tree sequences
+    remain owned by native external pointers while typed R functions expose
+    selected tables and tree intervals without a Python runtime.
+License: GPL (>= 2)
+Encoding: UTF-8
+Language: en-US
+Depends:
+    R (>= 4.4.0)
+Imports:
+    S7 (>= 0.2.2)
+Suggests:
+    roxygen2,
+    tinytest
+SystemRequirements: C99
+URL: https://github.com/RGenomicsETL/Rtskit
+BugReports: https://github.com/RGenomicsETL/Rtskit/issues
+Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.0.0
+Collate:
+    'validation.R'
+    'tree-sequence.R'
+    'zzz.R'
