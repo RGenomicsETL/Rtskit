@@ -33,8 +33,37 @@ excludes `right`.
 ```{r}
 tskit_nodes(trees)
 tskit_edges(trees)
+tskit_populations(trees)
+tskit_individuals(trees)
 tskit_trees(trees)
 ```
+
+## Opaque metadata
+
+Metadata and its schema remain separate raw byte sequences. Decode them only
+when the stored schema declares a codec the calling analysis understands.
+
+```{r}
+rawToChar(tskit_metadata_schema(trees, "populations"))
+lapply(tskit_metadata(trees, "populations"), rawToChar)
+```
+
+## Source-population ancestry
+
+For simulations that retain authoritative source populations,
+`tskit_ancestry_intervals()` walks each focal sample lineage to the first node
+in a declared source population. Adjacent marginal trees are merged while the
+source remains unchanged.
+
+```{r}
+tskit_ancestry_intervals(
+  trees,
+  c("panel:source_A" = 0L, "panel:source_B" = 1L)
+)
+```
+
+This operation does not infer ancestry labels. The source IDs and their truth
+semantics must come from the simulation manifest.
 
 ## Round trips
 

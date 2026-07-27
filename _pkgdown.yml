@@ -26,4 +26,11 @@ reference:
       - tskit_samples
       - tskit_nodes
       - tskit_edges
+      - tskit_populations
+      - tskit_individuals
+      - tskit_metadata
+      - tskit_metadata_schema
       - tskit_trees
+  - title: Simulation truth
+    contents:
+      - tskit_ancestry_intervals

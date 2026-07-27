@@ -14,7 +14,8 @@ Python, `reticulate`, Rust, Java, or a system tskit shared library.
 
 The initial interface keeps each `tsk_treeseq_t` under one native external
 pointer and exposes deliberate materialization operations for summaries, sample
-nodes, node and edge tables, and tree intervals.
+nodes, node, edge, population, and individual tables, opaque metadata bytes,
+tree intervals, and source-population ancestry intervals.
 
 Install the development build from R-universe:
 
@@ -36,11 +37,17 @@ trees
 tskit_nodes(trees)
 tskit_edges(trees)
 tskit_trees(trees)
+tskit_ancestry_intervals(
+  trees,
+  c("panel:source_A" = 0L, "panel:source_B" = 1L)
+)
 ```
 
-IDs retain tskit's zero-based indexing. Table metadata remains opaque bytes
-until an explicit schema-aware interface is implemented; the C API does not
-itself decode or validate metadata schemas.
+IDs retain tskit's zero-based indexing. `tskit_metadata()` and
+`tskit_metadata_schema()` return exact raw bytes: decoding remains an explicit
+caller decision because the C API does not itself interpret metadata codecs.
+Source-population ancestry is valid only when the simulation provenance makes
+its retained node populations authoritative.
 
 ## Native ownership
 

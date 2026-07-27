@@ -12,6 +12,7 @@ Rust, Java, or external shared-library runtime dependency.
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://rgenomicsetl.github.io/Rtskit/}
   \item \url{https://github.com/RGenomicsETL/Rtskit}
   \item Report bugs at \url{https://github.com/RGenomicsETL/Rtskit/issues}
 }

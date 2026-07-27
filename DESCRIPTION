@@ -17,7 +17,8 @@ Authors@R: c(
 Description: Provides a native R interface to the 'tskit' C API for loading,
     inspecting, traversing, and writing succinct tree sequences. Tree sequences
     remain owned by native external pointers while typed R functions expose
-    selected tables and tree intervals without a Python runtime.
+    selected tables, opaque metadata, tree intervals, and declared
+    source-population ancestry without a Python runtime.
 License: GPL (>= 2)
 Encoding: UTF-8
 Language: en-US

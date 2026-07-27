@@ -10,7 +10,12 @@ extern SEXP RC_rtskit_summary(SEXP);
 extern SEXP RC_rtskit_samples(SEXP);
 extern SEXP RC_rtskit_nodes(SEXP);
 extern SEXP RC_rtskit_edges(SEXP);
+extern SEXP RC_rtskit_populations(SEXP);
+extern SEXP RC_rtskit_individuals(SEXP);
+extern SEXP RC_rtskit_metadata(SEXP, SEXP, SEXP);
+extern SEXP RC_rtskit_metadata_schema(SEXP, SEXP);
 extern SEXP RC_rtskit_trees(SEXP);
+extern SEXP RC_rtskit_ancestry_intervals(SEXP, SEXP, SEXP, SEXP);
 extern SEXP RC_rtskit_example(void);
 
 static const R_CallMethodDef call_methods[] = {
@@ -22,7 +27,12 @@ static const R_CallMethodDef call_methods[] = {
     { "RC_rtskit_samples", (DL_FUNC) &RC_rtskit_samples, 1 },
     { "RC_rtskit_nodes", (DL_FUNC) &RC_rtskit_nodes, 1 },
     { "RC_rtskit_edges", (DL_FUNC) &RC_rtskit_edges, 1 },
+    { "RC_rtskit_populations", (DL_FUNC) &RC_rtskit_populations, 1 },
+    { "RC_rtskit_individuals", (DL_FUNC) &RC_rtskit_individuals, 1 },
+    { "RC_rtskit_metadata", (DL_FUNC) &RC_rtskit_metadata, 3 },
+    { "RC_rtskit_metadata_schema", (DL_FUNC) &RC_rtskit_metadata_schema, 2 },
     { "RC_rtskit_trees", (DL_FUNC) &RC_rtskit_trees, 1 },
+    { "RC_rtskit_ancestry_intervals", (DL_FUNC) &RC_rtskit_ancestry_intervals, 4 },
     { "RC_rtskit_example", (DL_FUNC) &RC_rtskit_example, 0 },
     { NULL, NULL, 0 }
 };

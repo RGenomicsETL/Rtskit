@@ -32,6 +32,25 @@
   value
 }
 
+.rtskit_assert_ids <- function(value, argument, allow_empty = TRUE) {
+  if (!is.numeric(value) || anyNA(value) || any(!is.finite(value)) ||
+      any(value != trunc(value)) || any(value < 0) ||
+      any(value > .Machine$integer.max)) {
+    stop(argument, " must contain non-negative integer IDs", call. = FALSE)
+  }
+  if (!allow_empty && length(value) == 0L) {
+    stop(argument, " must not be empty", call. = FALSE)
+  }
+  as.integer(value)
+}
+
+.rtskit_assert_flag <- function(value, argument) {
+  if (!is.logical(value) || length(value) != 1L || is.na(value)) {
+    stop(argument, " must be TRUE or FALSE", call. = FALSE)
+  }
+  value
+}
+
 .rtskit_assert_path <- function(path, argument, must_work) {
   if (!is.character(path) || length(path) != 1L || is.na(path) || !nzchar(path)) {
     stop(argument, " must be one non-missing, non-empty path", call. = FALSE)

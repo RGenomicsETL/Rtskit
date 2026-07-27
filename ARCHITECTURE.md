@@ -17,8 +17,9 @@ Zero-based tskit IDs remain zero-based. Sizes are returned as R doubles where a
 tskit size may exceed `INT_MAX`; materializers currently reject tables too
 large for their data-frame row-name representation instead of narrowing IDs.
 
-Metadata bytes and metadata schemas remain distinct. The initial interface does
-not silently parse JSON or reinterpret arbitrary metadata.
+Metadata bytes and metadata schemas remain distinct. Both are copied into raw R
+vectors only on request; the interface does not silently parse JSON or
+reinterpret arbitrary metadata.
 
 ## Native source policy
 
@@ -33,9 +34,14 @@ to the upstream source.
 
 ## Scope discipline
 
-Current operations load, dump, summarize, list samples, materialize node and
-edge tables, and traverse tree intervals. New tables or algorithms are added
-only with an R consumer, ownership contract, native test, and `.trees`
-round-trip evidence. Simulation belongs in a separate layer built on table
-construction and tree-sequence recording; it is not implied by tree-sequence
-I/O alone.
+Current operations load, dump, summarize, list samples, materialize node, edge,
+population, and individual tables, copy opaque metadata, traverse tree
+intervals, and extract source-population ancestry intervals. Ancestry extraction
+walks each focal lineage to the first node in a declared source population and
+merges adjacent intervals only while that source is unchanged; simulation
+provenance remains responsible for making this a valid truth definition.
+
+New tables or algorithms are added only with an R consumer, ownership contract,
+native test, and `.trees` round-trip evidence. Simulation belongs in a separate
+layer built on tree-sequence recording; it is not implied by tree-sequence I/O
+alone.
